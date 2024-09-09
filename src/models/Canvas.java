@@ -1,5 +1,6 @@
 package models;
 
+import models.shapes.ColorSelector;
 import models.shapes.Menu;
 
 import javax.swing.*;
@@ -15,15 +16,19 @@ public class Canvas extends JFrame implements Runnable{
 
     private int width, height;
 
+    private Color selectedColor = Color.WHITE;
+
     public Canvas(int _width, int _height) {
         this.width = _width;
         this.height = _height;
         BufferedImage menuBuffer = new BufferedImage(width * 5 / 32, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage colorSelectorBuffer = new BufferedImage(width * 5 / 32, height / 6, BufferedImage.TYPE_INT_ARGB);
         setTitle("Paint");
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         add(new Menu(menuBuffer));
+        add(new ColorSelector(colorSelectorBuffer));
         setVisible(true);
     }
     @Override

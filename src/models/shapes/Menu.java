@@ -17,7 +17,6 @@ public class Menu extends JPanel {
         LINE_TYPE,
         ERASE,
     }
-
     public Menu(BufferedImage _bufferedImage) {
         this.bufferedImage = _bufferedImage;
         this.width = _bufferedImage.getWidth();
@@ -86,6 +85,10 @@ public class Menu extends JPanel {
             }
             i++;
         }
+    }
+
+    public void setSelectedColor(Color selectedColor) {
+        this.selectedColor = selectedColor;
     }
 
 }
