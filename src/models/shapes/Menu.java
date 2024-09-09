@@ -24,6 +24,16 @@ public class Menu extends JPanel {
     }
 
     @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = this.bufferedImage.createGraphics();

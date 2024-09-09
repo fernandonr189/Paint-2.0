@@ -16,6 +16,17 @@ public class ColorSelector extends JPanel {
     }
 
     @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bufferedImage, 0, 0, this);

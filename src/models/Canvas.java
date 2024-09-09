@@ -5,18 +5,21 @@ import models.shapes.Menu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-public class Canvas extends JFrame implements Runnable{
+public class Canvas extends JFrame{
 
     private Point mousePosition;
 
     private int width, height;
 
     private Color selectedColor = Color.WHITE;
+
+    // Panes
+
+    private Menu menu;
+    private ColorSelector colorSelector;
 
     public Canvas(int _width, int _height) {
         this.width = _width;
@@ -27,29 +30,26 @@ public class Canvas extends JFrame implements Runnable{
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        add(new Menu(menuBuffer));
-        add(new ColorSelector(colorSelectorBuffer));
+
+        // Generate Panes
+        menu = new Menu(menuBuffer);
+        menu.setBounds(0, 0, menu.getWidth(), menu.getHeight());
+        colorSelector = new ColorSelector(colorSelectorBuffer);
+        colorSelector.setBounds(0, 0, colorSelector.getWidth(), colorSelector.getHeight());
+
+        // Add panes to layeredPane
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(width, height));
+
+        layeredPane.add(menu, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(colorSelector, JLayeredPane.PALETTE_LAYER);
+
+        add(layeredPane);
+
         setVisible(true);
     }
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-    }
-
-    @Override
-    public void run() {
-        double time = System.currentTimeMillis();
-        while(true) {
-            mousePosition = getMousePosition();
-            if(mousePosition != null) {
-                // tracking time and logging every 100 milliseconds
-                if(System.currentTimeMillis() - time > 100) {
-                    time = System.currentTimeMillis();
-                    // System.out.println("x: " + mousePosition.x);
-                    // System.out.println("y: " + mousePosition.y);
-                }
-                // todo: track mouse movement
-            }
-        }
     }
 }
